@@ -1,0 +1,43 @@
+[default]
+    LINK_RFB_ARQ = "https://dadosabertos.rfb.gov.br/CNPJ/"
+    LINK_RFB_SITE = "https://dados.gov.br/dados/conjuntos-dados/cadastro-nacional-da-pessoa-juridica---cnpj"
+    PATH_ARQ_RFB = "arq/rfb"
+    TITLE = "PYMARKET"
+    SECRET_KEY = "PYMARKET@2023##"
+    SEND_FILE_MAX_AGE_DEFAULT = 0
+    CONFIGURATION = [
+        "app.configuration.dynaconf",
+        "app.configuration.cors",
+    ]
+    BLUEPRINTS_API = [
+        "app.blueprints.api.cnae",
+        "app.blueprints.api.cnpj",
+        "app.blueprints.api.dashboard",
+    ]
+      BLUEPRINTS_WEB = [
+        "app.blueprints.web.main",
+        "app.blueprints.web.index",
+        "app.blueprints.web.dashboard",
+    ]
+    IMPORT_MODULES = [
+        "CONFIGURATION", 
+        "BLUEPRINTS_API",
+        "BLUEPRINTS_WEB",
+    ]
+
+[development]
+    DATABASE_SOLUTION = "sqlite3"
+    DATABASE_URI = "sqlite:///"
+    DATABASE_NAME = "pymarket"
+    DATABASE_SCHEMA = ""
+    DATABASE_PATH = "./arq/database/"
+    DATABASE_FILES = "./arq/rfb"
+
+[production]
+    
+    DATABASE_SOLUTION = "postgresql"
+    DATABASE_URI = "postgresql://pymarket:pymarket@localhost:5435/"
+    DATABASE_NAME = "pymarket"
+    DATABASE_SCHEMA = "pymarket_prod"
+    DATABASE_PATH = "./arq/database/"
+    DATABASE_FILES = "./arq/rfb"

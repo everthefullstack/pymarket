@@ -1,0 +1,33 @@
+pipeline {
+    agent {
+        docker {
+            image 'docker:latest'
+            args "--entrypoint=''"
+            args '--user root'
+        }
+    }
+    
+    stages {
+
+        stage('Create dir') {
+            steps {
+                sh 'mkdir /.docker'
+            }
+        }
+
+        stage('Build and deploy docker-compose-nginx') {
+            steps {
+                script{
+                    try{
+                        sh "docker compose -f docker-compose-nginx.yml down"
+                        sh "docker image rm -f build-nginx-nginx"
+                        sh "docker compose -f docker-compose-nginx.yml up -d"
+                    } catch(Exception e){
+                        echo 'Não foi possível executar o primeiro comando, será executado o segundo. Motivo: ' + e.toString()
+                        sh "docker compose -f docker-compose-nginx.yml up -d"
+                    }
+                }
+            }
+        }
+    }
+}

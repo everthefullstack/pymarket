@@ -1,0 +1,9 @@
+
+.slick-dots {
+    list-style: none; /* Remove os marcadores padrão da lista */
+    padding: 0; /* Remove o preenchimento padrão */
+}
+  
+.slick-dots li {
+    display: inline; /* Define os itens de lista para serem exibidos em linha */
+}

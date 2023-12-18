@@ -1,0 +1,36 @@
+version: '3.9'
+
+
+services: 
+  app-pymarket:
+    build:
+      context: .
+      dockerfile: Dockerfile-flask
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - apps-nginx
+    environment:
+      SCRIPT_NAME: /pymarket
+    command: gunicorn -w 2 -b 0.0.0.0:8000 server:wsgi
+
+  db-pymarket:
+    build:
+      context: .
+      dockerfile: Dockerfile-pgsql
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - apps-nginx
+    volumes:
+      - "db-pymarket:/var/lib/postgresql/data"
+    
+volumes:
+  db-pymarket:
+    driver: local
+
+networks:
+  apps-nginx:
+    external: true

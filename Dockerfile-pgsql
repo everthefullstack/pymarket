@@ -1,0 +1,6 @@
+FROM postgres:16-bullseye
+
+
+ENV POSTGRES_USER=pymarket
+ENV POSTGRES_PASSWORD=pymarket
+ENV POSTGRES_DATABASE=pymarket

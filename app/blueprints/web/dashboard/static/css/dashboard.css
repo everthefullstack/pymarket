@@ -1,0 +1,17 @@
+
+.slick-dots {
+    list-style: none; /* Remove os marcadores padrão da lista */
+    padding: 0; /* Remove o preenchimento padrão */
+}
+  
+.slick-dots li {
+    display: inline; /* Define os itens de lista para serem exibidos em linha */
+}
+
+.btn-custom{
+    background-color: #591AE7;
+}
+
+.btn-custom:hover{
+    background-color: #6d32f4;
+}

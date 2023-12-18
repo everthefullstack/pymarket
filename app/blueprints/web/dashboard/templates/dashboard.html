@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="{{ url_for('dashboard_web.static', filename='js/dashboard.js') }}"></script>
+
+    <!-- Bootstrap, CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
+    <link rel="stylesheet" href="{{ url_for('dashboard_web.static', filename='css/dashboard.css') }}">
+
+    <title>Pymarket</title>
+
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+    {% block content %}
+    {% endblock %}
+
+    <div class="container-fluid">
+
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-qtd-setor-tab" data-toggle="tab" href="#nav-qtd-setor" role="tab"
+                    aria-controls="nav-home" aria-selected="true">Crescimento e declínio de setores</a>
+                <a class="nav-item nav-link" id="nav-qtd-portes-setor-tab" data-toggle="tab" href="#nav-qtd-portes-setor" role="tab"
+                    aria-controls="nav-profile" aria-selected="false">Porte das empresas de cada setor</a>
+            </div>
+        </nav>
+        
+        <br> 
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-qtd-setor" role="tabpanel" aria-labelledby="nav-qtd-setor-tab">
+
+                <div class="row">
+
+                    <div class="col-6">
+        
+                        <div class="form-group row">
+        
+                            <label for="periodo-ini-setores" class="col-form-label">Periodo inicial</label>
+                            <div class="col-sm">
+                                <select class="custom-select" id="periodo-ini-setores" name="periodo-ini-setores">
+        
+                                </select>
+                            </div>
+        
+                            <label for="periodo-fim-setores" class="col-form-label">Periodo final</label>
+                            <div class="col-sm">
+                                <select class="custom-select" id="periodo-fim-setores" name="periodo-fim-setores">
+        
+                                </select>
+                            </div>
+        
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary btn-custom"
+                                    onclick="render_dash_cresc_dec_set()">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="row">
+
+                    <div class="col-6">
+                        <label for="qtd-setor"><strong>Crescimento e declínio de setores inicial</strong></label>
+                        <div id="qtd-setor" class="div-carousel-1-0">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="qtd-setor"><strong>Crescimento e declínio de setores final</strong></label>
+                        <div id="qtd-setor" class="div-carousel-1-1">
+                        </div>
+                    </div>
+        
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade" id="nav-qtd-portes-setor" role="tabpanel" aria-labelledby="nav-qtd-portes-setor-tab">
+                
+                <div class="row">
+        
+                    <div class="col-6">
+                        <div class="form-group row">
+        
+                            <label for="periodo-ini-portes" class="col-form-label">Periodo inicial</label>
+                            <div class="col-sm">
+                                <select class="custom-select" id="periodo-ini-portes" name="periodo-ini-portes">
+        
+                                </select>
+                            </div>
+        
+                            <label for="periodo-fim-portes" class="col-form-label">Periodo final</label>
+                            <div class="col-sm">
+                                <select class="custom-select" id="periodo-fim-portes" name="periodo-fim-portes">
+        
+                                </select>
+                            </div>
+        
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary btn-custom"
+                                    onclick="render_dash_porte_set()">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+
+                <div class="row">
+        
+                    <div class="col-6">
+                        <label for="qtd-setor"><strong>Porte das empresas de cada setor inicial</strong></label>
+                        <div id="qtd-portes-setor" class="div-carousel-2-0">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="qtd-setor"><strong>Porte das empresas de cada setor final</strong></label>
+                        <div id="qtd-portes-setor" class="div-carousel-2-1">
+                        </div>
+                    </div>
+        
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        window.onload = function () {
+            create_html_periodos();
+        };
+    </script>
+
+</body>
+
+</html>
